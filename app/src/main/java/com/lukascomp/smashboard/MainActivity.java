@@ -1,9 +1,10 @@
 package com.lukascomp.smashboard;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.content.Intent;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -16,10 +17,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void goTOPlayerList(View view){
+    /** Called when the user taps the Send button */
+    public void sendMessage(View view) {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
-        String message = "hello world";
+        String message = "Player List";
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
+
 }

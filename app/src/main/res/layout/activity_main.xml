@@ -24,7 +24,7 @@
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="2dp"
-        android:onClick="goTOPlayerList"
+        android:onClick="sendMessage"
         android:text="Player List"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
