@@ -29,4 +29,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openTest(View view) {
+        Intent intent = new Intent(this, LukasTest.class);
+        String message = "Player List";
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
 }

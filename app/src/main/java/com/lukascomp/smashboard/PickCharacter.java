@@ -37,6 +37,8 @@ public class PickCharacter extends AppCompatActivity {
 
 
         listView=(ListView)findViewById(R.id.charlist);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setItemsCanFocus(false);
 
         final ArrayList<String> charList = new ArrayList<>();
 
@@ -124,19 +126,19 @@ public class PickCharacter extends AppCompatActivity {
                 int i = (GAMECONSTELLATION[0][5] == null) ? 0 : 1;
                 if(GAMECONSTELLATION[i][1] == null){
                     GAMECONSTELLATION[i][1] = charList.get(position);
-                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character one is: "+charList.get(position)+ "! pick an other one", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character one is: "+charList.get(position)+ "! pick an other one", Toast.LENGTH_SHORT).show();
                 } else if(GAMECONSTELLATION[i][2] == null){
                     GAMECONSTELLATION[i][2] = charList.get(position);
-                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character two is: "+charList.get(position)+ "! pick an other one", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character two is: "+charList.get(position)+ "! pick an other one", Toast.LENGTH_SHORT).show();
                 } else if(GAMECONSTELLATION[i][3] == null){
                     GAMECONSTELLATION[i][3] = charList.get(position);
-                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character three is: "+charList.get(position)+ "! pick an other one", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character three is: "+charList.get(position)+ "! pick an other one", Toast.LENGTH_SHORT).show();
                 } else if(GAMECONSTELLATION[i][4] == null){
                     GAMECONSTELLATION[i][4] = charList.get(position);
-                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character four is: "+charList.get(position)+ "! pick an other one", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character four is: "+charList.get(position)+ "! pick an other one", Toast.LENGTH_SHORT).show();
                 } else {
                     GAMECONSTELLATION[i][5] = charList.get(position);
-                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character five is: "+charList.get(position)+ "! click on next!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(PickCharacter.this, GAMECONSTELLATION[i][0]+": Character five is: "+charList.get(position)+ "! click on next!", Toast.LENGTH_SHORT).show();
                 }
 
 
