@@ -29,38 +29,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="33dp"
-        android:text="VS"
-        android:textColor="@color/design_default_color_primary_dark"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/playertwo"
-        app:layout_constraintStart_toEndOf="@+id/playerone"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/charone"
         android:layout_width="142dp"
         android:layout_height="47dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerone" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/chartwo"
         android:layout_width="152dp"
         android:layout_height="43dp"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/charone"
-        app:layout_constraintTop_toBottomOf="@+id/playertwo" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/fight_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerone" />
 </android.support.constraint.ConstraintLayout>

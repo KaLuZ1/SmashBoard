@@ -3,44 +3,59 @@ package com.lukascomp.smashboard;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static com.lukascomp.smashboard.MainActivity.GAMECONSTELLATION;
+import static com.lukascomp.smashboard.MainActivity.charsOne;
+import static com.lukascomp.smashboard.MainActivity.charsTwo;
+import static com.lukascomp.smashboard.MainActivity.firstUser;
+import static com.lukascomp.smashboard.MainActivity.playerOne;
+import static com.lukascomp.smashboard.MainActivity.playerTwo;
 
 public class PickCharacter extends AppCompatActivity {
 
-    ListView listView;
+    ListView list_View;
+    ArrayAdapter<String> adapter;
+    ArrayList<String> charList= new ArrayList<>();
+    ArrayList<String> list_items = new ArrayList<>();
+    int count = 0;
+    Button nextButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_character);
+        nextButton = (Button)findViewById(R.id.reload);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
 
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.textView3);
-        if(GAMECONSTELLATION[0][1] == null){
-            textView.setText(GAMECONSTELLATION[0][0].toString()+" picks her/his Characters");
+
+        if(firstUser){
+            textView.setText(playerOne+" picks her/his Characters");
         } else {
-            textView.setText(GAMECONSTELLATION[1][0].toString()+" picks her/his Characters");
+            textView.setText(playerTwo+" picks her/his Characters");
         }
 
 
 
-        listView=(ListView)findViewById(R.id.charlist);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        listView.setItemsCanFocus(false);
+        list_View = (ListView)findViewById(R.id.charlist);
 
-        final ArrayList<String> charList = new ArrayList<>();
 
         charList.add("Bayonetta");
         charList.add("Bowser");
@@ -116,9 +131,79 @@ public class PickCharacter extends AppCompatActivity {
 
 
 
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, charList);
+        list_View.setAdapter(adapter);
+        list_View.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, charList);
-        listView.setAdapter(adapter);
+
+        list_View.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                if(checked){
+                    count++;
+                    mode.setTitle(count + " Chars selected. Confirm?");
+                    list_items.add(charList.get(position));
+                } else {
+                    count--;
+                    mode.setTitle(count + " Chars selected. Confirm?");
+                    list_items.remove(charList.get(position));
+                }
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.my_context_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+                switch (item.getItemId()) {
+                    case R.id.delete_id:
+                        if(list_items.size() == 5){
+                            for(String str: list_items){
+                                if(firstUser)
+                                    charsOne.add(str);
+                                else
+                                    charsTwo.add(str);
+                            }
+                            if(firstUser){
+                                Toast.makeText(getBaseContext(),"CHARACTERS FORM " + playerOne + "\n" + list_items.get(0) + "\n" + list_items.get(1) + "\n" + list_items.get(2) + "\n" + list_items.get(3) + "\n" +list_items.get(4), Toast.LENGTH_LONG).show();
+                                list_View.setVisibility(View.INVISIBLE);
+                                nextButton.setVisibility(View.VISIBLE);}
+                            else{
+                                Toast.makeText(getBaseContext(),"CHARACTERS FORM " + playerTwo + "\n" + list_items.get(0) + "\n" + list_items.get(1) + "\n" + list_items.get(2) + "\n" + list_items.get(3) + "\n" +list_items.get(4), Toast.LENGTH_LONG).show();
+                                nextButton.setVisibility(View.VISIBLE);
+                            adapter.clear();}
+
+                        } else {
+                            Toast.makeText(getBaseContext(),"Select 5 character! You selected " + count, Toast.LENGTH_SHORT).show();
+                            list_items.clear();
+                            count = 0;
+                        }
+                        mode.finish();
+                        return true;
+                    //    break;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
+
+
+        /*
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -143,22 +228,32 @@ public class PickCharacter extends AppCompatActivity {
 
 
             }
-        });
+        });*/
 
     }
     /** Called when the user taps the Send button */
-    public void updateThis(View view) {
-        Intent intent;
-        if(GAMECONSTELLATION[1][5] == null){
+    public void buttonNext(View view) {
+       /* Intent intent;
+        if(firstUser) {
+            firstUser = false;
             intent = new Intent(this, PickCharacter.class);
-        } else {
+        }else
             intent = new Intent(this, ConstallationCalculator.class);
-        }
-
+            String message = "Player List";
+            intent.putExtra("com.example.smashboard.MESSAGE1", message);
+            startActivity(intent); */
+        if(charsOne.size() != 0 && (charsTwo.size() != 0 || firstUser)) {
+        Intent intent;
+        if(firstUser) {
+            intent = new Intent(this, PickCharacter.class);
+        }else
+            intent = new Intent(this, ConstallationCalculator.class);
         String message = "Player List";
         intent.putExtra("com.example.smashboard.MESSAGE1", message);
+        firstUser = false;
         startActivity(intent);
-
-
+        } else
+            Toast.makeText(getBaseContext(),"You have to confirm the players before you can go next", Toast.LENGTH_SHORT).show();
     }
+
 }

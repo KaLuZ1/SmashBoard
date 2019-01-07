@@ -7,7 +7,10 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import static com.lukascomp.smashboard.MainActivity.GAMECONSTELLATION;
+import static com.lukascomp.smashboard.MainActivity.charsOne;
+import static com.lukascomp.smashboard.MainActivity.charsTwo;
+import static com.lukascomp.smashboard.MainActivity.playerOne;
+import static com.lukascomp.smashboard.MainActivity.playerTwo;
 
 public class ConstallationCalculator extends AppCompatActivity {
 
@@ -27,23 +30,23 @@ public class ConstallationCalculator extends AppCompatActivity {
         TextView charone = findViewById(R.id.charone);
         TextView chartwo = findViewById(R.id.chartwo);
 
-        playerone.setText(GAMECONSTELLATION[0][0].toString());
-        playertwo.setText(GAMECONSTELLATION[1][0].toString());
+        playerone.setText(playerOne);
+        playertwo.setText(playerTwo);
 
-        int rdm1 = new Random().nextInt(5);
-        int rdm2 = new Random().nextInt(4);
+        int rdm1 = new Random().nextInt(charsOne.size());
+        int rdm2 = new Random().nextInt(charsOne.size() - 1);
         if(rdm1 == rdm2) {
-            rdm2 = 5;
+            rdm2 = charsOne.size();
         }
-        charone.setText(GAMECONSTELLATION[0][rdm1 + 1]+", " + GAMECONSTELLATION[0][rdm2 + 1]);
+        charone.setText(charsOne.get(rdm1) + ", " + charsOne.get(rdm2));
 
-        rdm1 = new Random().nextInt(5);
-        rdm2 = new Random().nextInt(4);
+        rdm1 = new Random().nextInt(charsTwo.size());
+        rdm2 = new Random().nextInt(charsTwo.size() - 1);
         if(rdm1 == rdm2) {
-            rdm2 = 5;
+            rdm2 = charsTwo.size();
         }
 
-        chartwo.setText(GAMECONSTELLATION[1][rdm1 + 1]+", " + GAMECONSTELLATION[1][rdm2 + 1]);
+        chartwo.setText(charsTwo.get(rdm1) + ", " + charsTwo.get(rdm2));
 
 
     }
